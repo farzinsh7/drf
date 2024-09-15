@@ -4,7 +4,7 @@ from django.db import models
 class UserProfile(models.Model):
     name = models.CharField(max_length=300)
     age = models.PositiveIntegerField()
-    bio = models.TimeField()
+    bio = models.TextField()
     email = models.EmailField()
     
     def __str__(self):
