@@ -27,8 +27,8 @@ def user_profile(request):
     
 
 
-@api_view(['PUT'])
-def update_user_profile(request, id):
+@api_view(['PUT', 'DELETE'])
+def update_and_delete_user_profile(request, id):
     
     try:
         user_profile_obj = models.UserProfile.objects.get(id=id)
@@ -36,10 +36,17 @@ def update_user_profile(request, id):
         return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
 
-    serializer = serializers.UserProfileSerializer(
+    if request.method == "PUT":
+        
+        serializer = serializers.UserProfileSerializer(
         instance=user_profile_obj,
         data=request.data, 
-    )
-    serializer.is_valid(raise_exception=True)
-    serializer.save()
-    return Response(serializer.data, status=status.HTTP_200_OK)
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    if request.method == "DELETE":
+        
+        user_profile_obj.delete()
+        return Response({'message': 'UserProfile deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
