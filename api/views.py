@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import status
 from . import serializers
 from . import models
 
@@ -19,11 +20,26 @@ def user_profile(request):
         req_data = request.data
         
         serializer = serializers.CreateUserProfileSerializer(data=req_data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201) 
-        else:
-            return Response(serializer.errors, status=400)
-            
-   
+        
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=201) 
+    
 
+
+@api_view(['PUT'])
+def update_user_profile(request, id):
+    
+    try:
+        user_profile_obj = models.UserProfile.objects.get(id=id)
+    except models.UserProfile.DoesNotExist:
+        return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+
+    serializer = serializers.UserProfileSerializer(
+        instance=user_profile_obj,
+        data=request.data, 
+    )
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+    return Response(serializer.data, status=status.HTTP_200_OK)
