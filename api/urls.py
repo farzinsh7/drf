@@ -2,6 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('user/', views.user_profile, name="user-profile"),
-    path('user/<id>/', views.update_and_delete_user_profile, name="update-user-profile"),
+    path('user/', views.UserProfileList.as_view(), name="user-profile"),
+    path('user/<int:pk>/', views.UserProfileDetail.as_view(), name="update-user-profile"),
 ]
