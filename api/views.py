@@ -2,33 +2,17 @@ from django.http import Http404
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView
 from . import serializers
 from . import models
 
 
-class UserProfileList(APIView):
+class UserProfileList(ListAPIView):
     
-    
-    def post(self, request):
-        
-        serializer = serializers.CreateUserProfileSerializer(data=request.data)
-        
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        
-        return Response(serializer.data, status=status.HTTP_201_CREATED)        
-    
-    
-    def get(self, request):
-        
-        all_user_profile_obj = models.UserProfile.objects.all()
-        
-        serializer = serializers.UserProfileSerializer(
-            all_user_profile_obj,
-            many=True
-        )
-        
-        return Response(serializer.data)
+    queryset = models.UserProfile.objects.all()
+    serializer_class = serializers.UserProfileSerializer
+    # permission_classes =
+    # pagination_class =
     
 
 
