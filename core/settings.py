@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     
     #My_APPS
     'playground',
+    'store',
+    'tags',
 ]
 
 INTERNAL_IPS = [
