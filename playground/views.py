@@ -3,6 +3,7 @@ from store.models import Product
 
 # Create your views here.
 def say_hello(request):
-    products = Product.objects.all()
     
-    return render(request, 'index.html', )
+    product = Product.objects.get(pk=1)
+    
+    return render(request, 'hello.html', {'name' : 'Farzin'})
