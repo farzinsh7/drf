@@ -5,7 +5,7 @@ from store.models import Product, Order, OrderItem
 # Create your views here.
 def say_hello(request):
     
-    orders = OrderItem.objects.filter(product__collection__id=3).count()
+    products = Product.objects.filter(inventory__lt=10, unit_price__lt=20)
     
         
-    return render(request, 'hello.html', {'name' : 'Farzin', 'products': orders})
+    return render(request, 'hello.html', {'name' : 'Farzin', 'products': list(products)})

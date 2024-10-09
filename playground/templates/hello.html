@@ -7,7 +7,12 @@
 </head>
 <body>
 
-    <h1>Hello From DRF, This is {{name}} count: {{  products  }}</h1>
+    <h1>Hello From DRF, This is {{name}} </h1>
+    <ul>
+        {% for product in products %}
+        <li>{{  product.title  }}</li>
+        {% endfor %}
+    </ul>
     
 </body>
 </html>
