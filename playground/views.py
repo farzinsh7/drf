@@ -1,10 +1,15 @@
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
-from store.models import Product
+from store.models import Product, Order, OrderItem
 
 # Create your views here.
 def say_hello(request):
     
-    queryset = Product.objects.filter(unit_price__range=(20, 30))
+    orders = Order.objects.filter(customer__id=1)
+    
+    order_items = OrderItem.objects.filter(order__in=orders).select_related('product')
+    
+    product_titles = [item.product.title for item in order_items]
+    
         
-    return render(request, 'hello.html', {'name' : 'Farzin', 'products': list(queryset)})
+    return render(request, 'hello.html', {'name' : 'Farzin', 'products': product_titles})
