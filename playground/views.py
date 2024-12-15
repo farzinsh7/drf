@@ -7,6 +7,6 @@ from store.models import Product, Order, OrderItem
 
 def say_hello(request):
 
-    products = Product.objects.select_related('collection').all()
+    products = Product.objects.prefetch_related('promotions').all()
 
     return render(request, 'hello.html', {'name': 'Farzin', 'products': list(products)})
