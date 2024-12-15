@@ -7,6 +7,7 @@ from store.models import Product, Order, OrderItem
 
 def say_hello(request):
 
-    products = Product.objects.prefetch_related('promotions').all()
+    queryset = OrderItem.objects.select_related(
+        'product', 'order__customer').order_by('-order__placed_at')[:5]
 
-    return render(request, 'hello.html', {'name': 'Farzin', 'products': list(products)})
+    return render(request, 'hello.html', {'name': 'Farzin', 'queryset': list(queryset)})

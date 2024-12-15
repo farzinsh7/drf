@@ -8,8 +8,10 @@
   <body>
     <h1>Hello From DRF, This is {{name}}</h1>
     <ul>
-      {% for product in products %}
-      <li>{{ product.title }}</li>
+      {% for item in queryset %}
+      <li>Customer is: {{ item.order.customer.first_name }}</li>
+      <li>Products is: {{ item.product.title }}</li>
+      <li>-------------------------------------</li>
       {% endfor %}
     </ul>
   </body>
