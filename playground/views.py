@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models.aggregates import Count, Max, Min, Avg
 from store.models import Product, Order, OrderItem
 
 # Create your views here.
@@ -7,7 +8,7 @@ from store.models import Product, Order, OrderItem
 
 def say_hello(request):
 
-    queryset = OrderItem.objects.select_related(
-        'product', 'order__customer').order_by('-order__placed_at')[:5]
+    result = Product.objects.filter(collection__id=3).aggregate(minimum_unit=Min(
+        'unit_price'), maximum_unit=Max('unit_price'), average=Avg('unit_price'))
 
-    return render(request, 'hello.html', {'name': 'Farzin', 'queryset': list(queryset)})
+    return render(request, 'hello.html', {'name': 'Farzin', 'result': result})
