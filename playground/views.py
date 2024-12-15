@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import F
 from store.models import Product, Order, OrderItem
 
 # Create your views here.
@@ -7,6 +8,7 @@ from store.models import Product, Order, OrderItem
 
 def say_hello(request):
 
-    orders = OrderItem.objects.filter(product__collection__id=3)
+    products = Product.objects.filter(
+        id__in=OrderItem.objects.values('product__id').distinct())
 
-    return render(request, 'hello.html', {'name': 'Farzin', 'products': list(orders)})
+    return render(request, 'hello.html', {'name': 'Farzin', 'products': products})
