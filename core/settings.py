@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # My_APPS
     'playground',
     'store',
+    'store_custom',
     'tags',
     'likes',
 ]

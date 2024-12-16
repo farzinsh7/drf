@@ -4,8 +4,6 @@ from django.urls import reverse
 from django.utils.html import format_html, urlencode
 from . import models
 
-# Register your models here.
-
 
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
