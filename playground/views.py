@@ -5,10 +5,12 @@ from store.models import Product, Order, OrderItem, Customer, Collection
 
 
 def say_hello(request):
-    collection = Collection()
-    collection.title = 'Video Games'
-    collection.featured_product = Product(
-        pk=1)  # or you can use only id like 1
-    collection.save()
+    # collection = Collection(pk=11)
+    # collection.title = 'Games'
+    # collection.featured_product = None
+    # collection.save()
+
+    # or the better way
+    Collection.objects.filter(pk=11).update(title='Video Games')
 
     return render(request, 'hello.html', {'name': 'Farzin'})
