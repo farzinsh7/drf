@@ -26,6 +26,7 @@ admin.site.index_title = "Welcome to DRF"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('playground/', include('playground.urls')),
+    path('store/', include('store.urls')),
 ]
 
 urlpatterns += debug_toolbar_urls()
