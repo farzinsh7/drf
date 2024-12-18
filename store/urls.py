@@ -4,8 +4,9 @@ from . import views
 app_name = "store"
 # URLConf
 urlpatterns = [
-    path('products/', views.product_list, name="product_list"),
-    path('products/<int:pk>/', views.product_detail, name="product_detail"),
-    path('collection/', views.collection_list, name="collection_list"),
-    path('collection/<int:pk>/', views.collection_detail, name="collection_detail"),
+    path('products/', views.ProductList.as_view(), name="product_list"),
+    path('products/<int:pk>/', views.ProductDetail.as_view(), name="product_detail"),
+    path('collection/', views.CollectionList.as_view(), name="collection_list"),
+    path('collection/<int:pk>/', views.CollectionDetail.as_view(),
+         name="collection_detail"),
 ]
