@@ -12,6 +12,6 @@ product_router = routers.NestedDefaultRouter(
 product_router.register('reviews', views.ReviewViewSet,
                         basename='product-reviews')
 
-app_name = "store"
+# app_name = "store"
 # URLConf
 urlpatterns = router.urls + product_router.urls
