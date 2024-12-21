@@ -46,11 +46,11 @@ INSTALLED_APPS = [
     'rest_framework',
 
     # My_APPS
+    'core_custom',
+    'likes',
     'playground',
     'store',
-    'store_custom',
     'tags',
-    'likes',
 ]
 
 INTERNAL_IPS = [
@@ -151,3 +151,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
+
+
+AUTH_USER_MODEL = 'core_custom.User'
