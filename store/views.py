@@ -7,7 +7,7 @@ from rest_framework.mixins import CreateModelMixin, DestroyModelMixin, RetrieveM
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
-from .models import Product, Collection, OrderItem, Review, Cart, CartItem, Customer
+from .models import Product, Collection, OrderItem, Review, Cart, CartItem, Customer, Order
 from .filters import ProductFilter
 from .permissions import IsAdminOrReadOnly, ViewCustomerHistoryPermission
 from .serializers import ProductSerializer, \
@@ -17,7 +17,8 @@ from .serializers import ProductSerializer, \
     CartItemSerializer, \
     AddCartItemSerializer, \
     UpdateCartItemSerializer, \
-    CustomerSerializer
+    CustomerSerializer, \
+    OrderSeirializer
 
 
 class ProductViewSet(ModelViewSet):
@@ -103,3 +104,8 @@ class CustomerViewSet(ModelViewSet):
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data)
+
+
+class OrderViewSet(ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSeirializer
