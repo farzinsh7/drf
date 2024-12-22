@@ -160,5 +160,10 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
 }
 
+DJOSER = {
+    'SERIALIZERS': {
+        'user_create': 'core_custom.serializers.UserCreateSerializer',
+    },
+}
 
 AUTH_USER_MODEL = 'core_custom.User'
