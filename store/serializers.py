@@ -119,8 +119,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 
 class OrderSeirializer(serializers.ModelSerializer):
-    items = OrderItemSerializer(many=True, read_only=True)
-    # customer = CustomerSerializer(read_only=True)
+    items = OrderItemSerializer(many=True)
 
     class Meta:
         model = Order
