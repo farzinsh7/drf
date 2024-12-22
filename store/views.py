@@ -18,7 +18,8 @@ from .serializers import ProductSerializer, \
     AddCartItemSerializer, \
     UpdateCartItemSerializer, \
     CustomerSerializer, \
-    OrderSeirializer
+    OrderSeirializer, \
+    CreateOrderSeirializer
 
 
 class ProductViewSet(ModelViewSet):
@@ -107,8 +108,15 @@ class CustomerViewSet(ModelViewSet):
 
 
 class OrderViewSet(ModelViewSet):
-    serializer_class = OrderSeirializer
     permission_classes = [IsAuthenticated]
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return CreateOrderSeirializer
+        return OrderSeirializer
+
+    def get_serializer_context(self):
+        return {'user_id': self.request.user.id}
 
     def get_queryset(self):
         user = self.request.user
