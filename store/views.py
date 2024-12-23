@@ -19,7 +19,8 @@ from .serializers import ProductSerializer, \
     UpdateCartItemSerializer, \
     CustomerSerializer, \
     OrderSeirializer, \
-    CreateOrderSeirializer
+    CreateOrderSeirializer, \
+    UpdateOrderSerializer
 
 
 class ProductViewSet(ModelViewSet):
@@ -127,6 +128,8 @@ class OrderViewSet(ModelViewSet):
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return CreateOrderSeirializer
+        elif self.request.method == 'PATCH':
+            return UpdateOrderSerializer
         return OrderSeirializer
 
     def get_queryset(self):
