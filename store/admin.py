@@ -5,12 +5,23 @@ from django.utils.html import format_html, urlencode
 from . import models
 
 
+class ProductImageInline(admin.TabularInline):
+    model = models.ProductImage
+    readonly_fields = ['thumbnail']
+
+    def thumbnail(self, instance):
+        if instance.image.name != '':
+            return format_html(f'<img src="{instance.image.url}" class="admin-view-thumbnail" />')
+        return ''
+
+
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
     autocomplete_fields = ['collection']
     prepopulated_fields = {
         'slug': ['title']
     }
+    inlines = [ProductImageInline]
     list_display = ['title', 'unit_price',
                     'inventory_status', 'collection_title']
     list_per_page = 20
@@ -26,6 +37,11 @@ class ProductAdmin(admin.ModelAdmin):
         if product.inventory < 10:
             return 'Low'
         return 'OK'
+
+    class Media:
+        css = {
+            'all': ['store/styles.css']
+        }
 
 
 @admin.register(models.Customer)
