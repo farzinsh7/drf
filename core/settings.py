@@ -196,3 +196,10 @@ DEFAULT_FROM_EMAIL = 'from@farzinshams.com'
 
 
 CELERY_BROKER_URL = 'redis://localhost:6379/1'
+CELERY_BEAT_SCHEDULE = {
+    'notify_customers': {
+        'task': 'playground.tasks.notify_customers',
+        'schedule': 5,  # Every 5 Seconds Or for minutes should use 15 * 60
+        'args': ['Hello World!'],
+    }
+}
