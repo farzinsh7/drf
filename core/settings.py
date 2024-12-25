@@ -193,3 +193,6 @@ EMAIL_PORT = 2525
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 DEFAULT_FROM_EMAIL = 'from@farzinshams.com'
+
+
+CELERY_BROKER_URL = 'redis://localhost:6379/1'
