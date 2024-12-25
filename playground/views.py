@@ -1,4 +1,4 @@
-from django.core.mail import send_mail, mail_admins, BadHeaderError
+from django.core.mail import EmailMessage, BadHeaderError
 from django.shortcuts import render
 
 # Create your views here.
@@ -6,8 +6,10 @@ from django.shortcuts import render
 
 def say_hello(request):
     try:
-        send_mail('subject', 'message', 'info@drf.com',
-                  ['bob@farzinshams.com'])
+        message = EmailMessage('subject', 'message',
+                               'info@attach.com', ['john@gmail.com'])
+        message.attach_file('playground/static/images/contact.webp')
+        message.send()
     except BadHeaderError:
         pass
 
